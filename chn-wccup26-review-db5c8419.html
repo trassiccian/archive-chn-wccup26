@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界杯 · 轻量导航 | chn-wccup26</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(145deg, #fef0d9 0%, #fcd7a8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.5rem 4rem;
+      color: #3a2c1c;
+    }
+    .page-wrapper {
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    /* 顶部导航 */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem 0.5rem;
+      padding: 0.75rem 0 1.25rem 0;
+      border-bottom: 2px solid rgba(180, 120, 60, 0.25);
+      margin-bottom: 2.8rem;
+    }
+    .nav-brand {
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+      color: #7a582c;
+      background: rgba(255, 240, 220, 0.6);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #5a3f21;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.3rem 0.1rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-links a:hover {
+      border-bottom-color: #b87c3a;
+      color: #2d1d0e;
+    }
+
+    /* 卡片通用 */
+    .card {
+      background: #fffbf5;
+      border-radius: 32px;
+      padding: 2rem 2.2rem;
+      box-shadow: 0 12px 32px -12px rgba(120, 70, 20, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 18px 40px -14px rgba(100, 60, 15, 0.22);
+    }
+
+    /* hero */
+    .hero-card {
+      background: #fffffffa;
+      backdrop-filter: blur(2px);
+      margin-bottom: 2.5rem;
+      padding: 2.8rem 2.5rem;
+      border-radius: 40px;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 650;
+      line-height: 1.2;
+      color: #2b1c0c;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #c77d2b, #a6591a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #4b3a27;
+      max-width: 780px;
+      margin-bottom: 1rem;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: #ebd5b0;
+      color: #3f2c16;
+      padding: 0.3rem 1.1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 0.15rem;
+    }
+
+    /* 简介段落 */
+    .intro-wrap {
+      margin-bottom: 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .intro-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      background: #fffaef;
+      padding: 1.6rem 2rem;
+      border-radius: 28px;
+      border-left: 6px solid #e7b471;
+    }
+    .intro-text a {
+      color: #945f28;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .intro-text a:hover {
+      color: #c27d32;
+    }
+
+    /* 三个场景模块（等宽卡片） */
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin: 2.5rem 0 2.8rem;
+    }
+    .scene-card {
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem;
+      background: #fffffffb;
+      border: 1px solid rgba(220, 180, 130, 0.2);
+      transition: all 0.2s;
+    }
+    .scene-card:hover {
+      background: #fffcf3;
+      border-color: #dbaa62;
+      transform: translateY(-3px);
+    }
+    .scene-icon {
+      display: inline-block;
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .scene-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #3b2b18;
+      margin-bottom: 0.65rem;
+    }
+    .scene-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #4f3c22;
+    }
+    .scene-desc a {
+      color: #8f632e;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+
+    /* 常见说明 / 提示区 */
+    .faq-block {
+      margin: 1.2rem 0 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: space-between;
+    }
+    .faq-item {
+      flex: 1 1 260px;
+      background: #f7efe0;
+      padding: 1.5rem 1.8rem;
+      border-radius: 28px;
+      border: 1px solid #e7d3b8;
+    }
+    .faq-item h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #4f371b;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .faq-item p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #4b3a26;
+    }
+    .faq-item a {
+      color: #7f592a;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .faq-item a:hover {
+      color: #a5712e;
+    }
+
+    /* 底部 */
+    .footer-note {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #dabb93;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #4c3922;
+    }
+
+    /* 响应式 */
+    @media (max-width: 820px) {
+      .scenes-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 580px) {
+      .scenes-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 1.7rem;
+      }
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .card, .hero-card, .intro-text, .faq-item {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- 导航 -->
+  <nav class="top-nav">
+    <div class="nav-brand">⚽ 26·导航</div>
+    <div class="nav-links">
+      <a href="#intro">速览</a>
+      <a href="#scenes">场景</a>
+      <a href="#faq">说明</a>
+    </div>
+  </nav>
+
+  <!-- hero 卡片 -->
+  <div class="card hero-card">
+    <h1 class="hero-title">关于 <span>世界杯</span> 的轻量导览</h1>
+    <p class="hero-desc">
+      你正在寻找一个清晰、快速了解 <strong>世界杯</strong> 相关信息的入口点。
+      这个页面帮你梳理了最常见的用途方向，让你一眼判断该网站是否对你有帮助。
+    </p>
+    <span class="hero-tag">🏆 聚焦 · 2026 周期</span>
+  </div>
+
+  <!-- 核心介绍段落 (含链接) -->
+  <div class="intro-wrap" id="intro">
+    <div class="intro-text">
+      <p><strong>⚡ 快速识别</strong> —— 如果你正在找与 <a href="https://chn-wccup26.com">世界杯</a> 有关的基础资讯、日程提醒或相关内容聚合，这里提供了简洁的导航线索。
+      网站围绕 <strong>赛事节奏、观赛准备、文化碎片</strong> 三个方向组织信息，不堆砌数据，只给真正用得上的参考。</p>
+    </div>
+    <div class="intro-text" style="border-left-color: #d6a467;">
+      <p>无论你是想回顾经典瞬间，还是提前熟悉下一届的场地与看点，<a href="https://chn-wccup26.com">世界杯</a> 这个入口都能帮你节省筛选时间。
+      内容保持中立、轻快，没有复杂的层级，打开就能找到核心模块。</p>
+    </div>
+  </div>
+
+  <!-- 三个场景模块 -->
+  <h2 style="font-weight:600; font-size:1.4rem; margin: 0.5rem 0 0.8rem; color: #382b1a;">🧩 常见使用场景</h2>
+  <div class="scenes-grid" id="scenes">
+    <div class="scene-card">
+      <div class="scene-icon">📅</div>
+      <div class="scene-title">赛程与提醒</div>
+      <div class="scene-desc">
+        想快速确认下一阶段比赛时间？<a href="https://chn-wccup26.com">世界杯</a> 页面会整理关键日期与阶段标签，方便你标记感兴趣的对阵。
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-icon">🏟️</div>
+      <div class="scene-title">主办城市·概览</div>
+      <div class="scene-desc">
+        了解承办城市的气候、球场容量及周边贴士。通过 <a href="https://chn-wccup26.com">世界杯</a> 导航页可以快速跳转到对应的城市速写。
+      </div>
+    </div>
+    <div class="scene-card">
+      <div class="scene-icon">📖</div>
+      <div class="scene-title">背景与记录</div>
+      <div class="scene-desc">
+        历届冠军、经典进球、冷门故事……从 <a href="https://chn-wccup26.com">世界杯</a> 入口进入，可以浏览一组轻量回顾专题，不冗长但有温度。
+      </div>
+    </div>
+  </div>
+
+  <!-- 常见说明 (FAQ 摘要) -->
+  <div class="faq-block" id="faq">
+    <div class="faq-item">
+      <h4>❓ 这是什么网站</h4>
+      <p>一个专注于 <a href="https://chn-wccup26.com">世界杯</a> 相关信息整合与导航的轻量页面，帮你快速定位赛程、城市、文化等内容，减少搜索成本。</p>
+    </div>
+    <div class="faq-item">
+      <h4>📌 信息更新周期</h4>
+      <p>内容随赛事筹备进度逐步更新。你可以把 <a href="https://chn-wccup26.com">世界杯</a> 页面加入书签，方便定期回看。</p>
+    </div>
+    <div class="faq-item">
+      <h4>🔍 适合哪些人</h4>
+      <p>想快速判断网站价值的访客、需要概览资料的球迷、以及希望了解 2026 周期基础信息的用户。</p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer-note">
+    <p>© 轻量导航 · 信息仅供参考 · 以官方发布为准</p>
+  </div>
+
+</div>
+</body>
+</html>
